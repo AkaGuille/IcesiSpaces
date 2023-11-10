@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Luminosity from './pages/Luminosity.js';
 
 function App() {
   return (
