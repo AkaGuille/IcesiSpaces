@@ -1,0 +1,15 @@
+body {
+    background-color: #3EC6FF;
+}
+
+.recuadro-medio {
+    width: 300px;
+    height: 200px;
+    background-color: #000000;
+    margin: 0 auto;
+}
+
+.recuadro-medio p {
+    font-size: 18px;
+    color: #ffffff;
+}
