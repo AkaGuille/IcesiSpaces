@@ -1,32 +1,57 @@
 import React, { Component } from "react";
+import './questions.css';
+import studyLogo from './studylogo.png';
+import icesiLogo from './icesilogo.png';
+import owl from './owl.png';
 
 class QuestionFive extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sliderValue: 1,
+    };
+  }
+
+  handleSliderChange = (event) => {
+    const sliderValue = event.target.value;
+    this.setState({ sliderValue });
+  };
   render() {
+    const { goToNextQuestion, goToPreviousQuestion } = this.props;
+    const { sliderValue } = this.state;
     return (
       <div style={{ backgroundColor: "#3EC6FF" }}>
         <header>
-          <img src="./logo1.svg" />
-          <img src="./logo2.svg" />
+          <img id="studylogo" src={studyLogo} alt="Study Logo" />
+          <img src={icesiLogo} alt="Ice Logo" />
         </header>
-        <h1 style={{ color: "white" }}>Pregunta 5</h1>
-        <div className="recuadro-medio" style={{ backgroundColor: "white", width: "300px", margin: "0 auto" }}>
-          <h2 style={{ color: "#004A69" }}>Subtítulo</h2>
-          <button onClick={() => {
+        <h1 style={{ color: "white" }}>Temperatura caliente</h1>
+        <div className="recuadro-medio">
+        <h3 style={{ color: "#004A69" }}>En una escala del 1 al 10, ¿cuán importante es para ti que un espacio de estudio tenga una <strong>temperatura caliente</strong>?</h3>
+          <div className="slider">
+            <button className="pagesButton" onClick={() => {
             console.log("Anterior button clicked");
             this.props.goToPreviousQuestion();
-            }}>Anterior</button>
+            }} style={{ cursor: "pointer" }}>{'<'}</button>
 
-          <input type="range" min="1" max="10" />
-          <button onClick={() => {
+          <input className="sliderRange" type="range" min="1" max="10" value={sliderValue} onChange={this.handleSliderChange} />
+
+          <button className="pagesButton" onClick={() => {
             console.log("Siguiente button clicked");
             this.props.goToNextQuestion();
-            }}>Siguiente</button>
+            }} style={{ cursor: "pointer" }}>{'>'}</button>
+            </div>
+          <div className="showSliderValue"><p>{sliderValue}</p></div>
+            
+          
 
-          <div>Pregunta 5 de 8</div>
+          <div className="question">Pregunta 5 de 8</div>
 
           
         </div>
-        <img src="./image1.png" />
+        <div id="lastImage">
+          <img id="owlimage" style={{ position: "fixed",  top: "100%", left: "50%", transform: "translate(-50%, -50%)"}} src={owl} alt="Owl" />
+        </div>
       </div>
     );
   }
