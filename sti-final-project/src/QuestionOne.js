@@ -3,6 +3,7 @@ import './questions.css';
 import studyLogo from './studylogo.png';
 import icesiLogo from './icesilogo.png';
 import owl from './owl.png';
+import { useResponse } from "./hook/useResponse";
 
 class QuestionOne extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class QuestionOne extends Component {
     this.setState({ sliderValue });
   };
   render() {
+    
     const { goToNextQuestion, goToPreviousQuestion } = this.props;
     const { sliderValue } = this.state;
     return (
