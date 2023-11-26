@@ -50,7 +50,7 @@ class QuestionThree extends Component {
           
         </div>
         <div id="lastImage">
-          <img id="owlimage" style={{ position: "fixed",  top: "100%", left: "50%", transform: "translate(-50%, -50%)"}} src={owl} alt="Owl" />
+          <img id="owlimage" style={{ position: "fixed",  top: "105%", left: "50%", transform: "translate(-50%, -50%)"}} src={owl} alt="Owl" />
         </div>
       </div>
     );
