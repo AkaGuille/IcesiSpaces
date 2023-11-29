@@ -66,20 +66,30 @@ print(f'Recomendaciones para el Usuario {usuario_a_recomendar}: {recomendaciones
 # Route for getting recomendations
 @app.route('/api/recommendations', methods=['POST'])
 def recommend_spaces():
+    
     data = request.get_json()
 
-    if 'user_id' not in data:
-        return jsonify({'error': 'User ID is required'}), 400
+    if not data or 'user_preferences' not in data:
+        return jsonify({'error': 'User preferences are required in the request'}), 400
     
-    user_id = data['user_id']
+    user_preferences = data['user_preferences']
 
-    if user_id not in usuarios:
-        return jsonify({'error': 'User not found'}), 404
+    # Obtener el tamaño actual de usuarios
+    tamano_usuarios_anterior = len(usuarios)
 
-    # Obtener recomendaciones para el usuario correspondiente al ID
-    recommendations = obtener_recomendaciones(usuarios[user_id], usuarios, elementos)
+    # Obtener el último número usado y aumentarlo en 1
+    ultimo_numero_usado = tamano_usuarios_anterior if tamano_usuarios_anterior > 0 else 0
+    nuevo_numero_usuario = ultimo_numero_usado + 1
+
+    # Crear un nuevo usuario en la base de datos con el nuevo número como clave
+    new_user_ref = db_people_ref.child(str(nuevo_numero_usuario))
+    new_user_ref.set(user_preferences)
+
+    # Obtener recomendaciones para el usuario recién creado
+    recommendations = obtener_recomendaciones(usuarios[str(0)], usuarios, elementos)
     
-    return jsonify({'user_id': user_id, 'recommendations': recommendations}), 200
+    return jsonify({'user_id': str(nuevo_numero_usuario), 'recommendations': recommendations}), 200
+    
 
 
 if __name__ == '__main__':
