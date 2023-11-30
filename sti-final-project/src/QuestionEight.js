@@ -3,6 +3,9 @@ import './questions.css';
 import studyLogo from './studylogo.png';
 import icesiLogo from './icesilogo.png';
 import owl from './owl.png';
+import axios from 'axios';  // Importa axios
+
+
 
 class QuestionEight extends Component {
   constructor(props) {
@@ -16,6 +19,29 @@ class QuestionEight extends Component {
     const sliderValue = event.target.value;
     this.setState({ sliderValue });
   };
+
+  handleSurveyCompletion = () => {
+    const datosEncuesta = {
+      'cold_temperature': 9,
+      'comfort': 8,
+      'crowdedness': 3,
+      'electrical_outlets': 10,
+      'hot_temperature': 2,
+      'lighting': 6,
+      'noise': 2,
+      'services': 4
+    };
+
+    axios.post('http://127.0.0.1:5000/api/recommendations', datosEncuesta)
+      .then(response => {
+        console.log('Respuesta del servidor:', response.data);
+        // Aquí puedes manejar la respuesta del servidor si es necesario
+      })
+      .catch(error => {
+        console.error('Error al enviar la encuesta:', error);
+      });
+  };
+
   render() {
     const { goToNextQuestion, goToPreviousQuestion } = this.props;
     const { sliderValue } = this.state;
@@ -39,12 +65,12 @@ class QuestionEight extends Component {
           <button className="pagesButton" onClick={() => {
             console.log("Siguiente button clicked");
             this.props.goToNextQuestion();
+            this.handleSurveyCompletion();
             }} style={{ cursor: "pointer" }}>{'>'}</button>
             </div>
           <div className="showSliderValue"><p>{sliderValue}</p></div>
             
           
-
           <div className="question">Pregunta 8 de 8</div>
 
           
